@@ -76,6 +76,7 @@
     * [C++面试&C++学习指南知识点整理](https://github.com/youngyangyang04/TechCPP)
     * [C++语言基础课](https://kamacoder.com/course.php?course_id=1)
     * [Java语言基础课](https://kamacoder.com/course.php?course_id=2)
+    * [23种设计模式](https://github.com/youngyangyang04/kama-DesignPattern)
 
 * 项目
     * [基于跳表的轻量级KV存储引擎](https://github.com/youngyangyang04/Skiplist-CPP)
@@ -397,9 +398,9 @@
 * [图论：417.太平洋大西洋水流问题](./problems/0417.太平洋大西洋水流问题.md)
 * [图论：827.最大人工岛](./problems/0827.最大人工岛.md)
 * [图论：127. 单词接龙](./problems/0127.单词接龙.md)
-* [图论：841.钥匙和房间](./problems/841.钥匙和房间)
+* [图论：841.钥匙和房间](./problems/0841.钥匙和房间.md)
 * [图论：463. 岛屿的周长](./problems/0463.岛屿的周长.md)
-* [图论：并查集理论基础](./problems/)
+* [图论：并查集理论基础](./problems/图论并查集理论基础.md)
 * [图论：1971. 寻找图中是否存在路径](./problems/1971.寻找图中是否存在路径.md)
 * [图论：684.冗余连接](./problems/0684.冗余连接.md)
 * [图论：685.冗余连接II](./problems/0685.冗余连接II.md)

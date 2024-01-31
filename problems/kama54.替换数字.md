@@ -46,7 +46,7 @@
 
 从前向后填充就是O(n^2)的算法了，因为每次添加元素都要将添加元素之后的所有元素整体向后移动。
 
-**其实很多数组填充类的问题，其做饭都是先预先给数组扩容带填充后的大小，然后在从后向前进行操作。**
+**其实很多数组填充类的问题，其做法都是先预先给数组扩容带填充后的大小，然后在从后向前进行操作。**
 
 这么做有两个好处：
 
@@ -56,36 +56,36 @@
 C++代码如下：
 
 ```CPP
-#include<iostream>
+#include <iostream>
 using namespace std;
 int main() {
     string s;
     while (cin >> s) {
+        int sOldIndex = s.size() - 1;
         int count = 0; // 统计数字的个数
-        int sOldSize = s.size();
         for (int i = 0; i < s.size(); i++) {
             if (s[i] >= '0' && s[i] <= '9') {
                 count++;
             }
         }
-        // 扩充字符串s的大小，也就是每个空格替换成"number"之后的大小
+        // 扩充字符串s的大小，也就是将每个数字替换成"number"之后的大小
         s.resize(s.size() + count * 5);
-        int sNewSize = s.size();
-        // 从后先前将空格替换为"number"
-        for (int i = sNewSize - 1, j = sOldSize - 1; j < i; i--, j--) {
-            if (s[j] > '9' || s[j] < '0') {
-                s[i] = s[j];
+        int sNewIndex = s.size() - 1;
+        // 从后往前将数字替换为"number"
+        while (sOldIndex >= 0) {
+            if (s[sOldIndex] >= '0' && s[sOldIndex] <= '9') {
+                s[sNewIndex--] = 'r';
+                s[sNewIndex--] = 'e';
+                s[sNewIndex--] = 'b';
+                s[sNewIndex--] = 'm';
+                s[sNewIndex--] = 'u';
+                s[sNewIndex--] = 'n';
             } else {
-                s[i] = 'r';
-                s[i - 1] = 'e';
-                s[i - 2] = 'b';
-                s[i - 3] = 'm';
-                s[i - 4] = 'u';
-                s[i - 5] = 'n';
-                i -= 5;
+                s[sNewIndex--] = s[sOldIndex];
             }
+            sOldIndex--;
         }
-        cout << s << endl;
+        cout << s << endl;       
     }
 }
 
@@ -162,11 +162,88 @@ class Main {
 ```
 
 ### Go：
+````go
+package main
+
+import "fmt"
+
+func main(){
+    var strByte []byte
+    
+    fmt.Scanln(&strByte)
+    
+    for i := 0; i < len(strByte); i++{
+        if strByte[i] <= '9' && strByte[i] >= '0' {
+            inserElement := []byte{'n','u','m','b','e','r'}
+            strByte = append(strByte[:i], append(inserElement, strByte[i+1:]...)...)
+            i = i + len(inserElement) -1
+        }
+    }
+    
+    fmt.Printf(string(strByte))
+}
+````
+Go使用双指针解法
+````go
+package main
+
+import "fmt"
+
+func replaceNumber(strByte []byte) string {
+    // 查看有多少字符
+    numCount, oldSize := 0, len(strByte)
+    for i := 0; i < len(strByte); i++ {
+        if (strByte[i] <= '9') && (strByte[i] >= '0') {
+            numCount ++
+        }
+    }
+    // 增加长度
+    for i := 0; i < numCount; i++ {
+        strByte = append(strByte, []byte("     ")...)
+    }
+    tmpBytes := []byte("number")
+    // 双指针从后遍历
+    leftP, rightP := oldSize-1, len(strByte)-1
+    for leftP < rightP {
+        rightShift := 1
+        // 如果是数字则加入number
+        if (strByte[leftP] <= '9') && (strByte[leftP] >= '0') {
+            for i, tmpByte := range tmpBytes {
+                strByte[rightP-len(tmpBytes)+i+1] = tmpByte
+            }
+            rightShift = len(tmpBytes)
+        } else {
+            strByte[rightP] = strByte[leftP]
+        }
+        // 更新指针
+        rightP -= rightShift
+        leftP -= 1
+    }
+    return string(strByte)
+}
+
+func main(){
+    var strByte []byte
+    fmt.Scanln(&strByte)
+    
+    newString := replaceNumber(strByte)
+
+    fmt.Println(newString)
+}
+````
 
 
 
 ### python：
-
+```Python
+class Solution:
+    def change(self, s):
+        lst = list(s) # Python里面的string也是不可改的，所以也是需要额外空间的。空间复杂度：O(n)。
+        for i in range(len(lst)):
+            if lst[i].isdigit():
+                lst[i] = "number"
+        return ''.join(lst)
+```
 ### JavaScript:
 
 
